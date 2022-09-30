@@ -1,0 +1,41 @@
+syntax ="proto3";
+package genproto;
+option go_package ="genproto/position_service";
+
+
+service CompanyService{
+    rpc Create(CreateCompany) returns (CompanyId){}
+    rpc GetAll(GetAllCompanyRequest) returns (GetAllCompanyResponse) {}
+    rpc GetById(CompanyId) returns (Company){}
+    rpc Update(Company) returns (Company){}
+    rpc Delete(CompanyId) returns (AffectedRow){}
+}
+
+message Company {
+    string id = 1;
+    string name = 2;
+    string created_at =3;
+    string updated_at =4; 
+}
+
+message CreateCompany{
+    string name = 1;
+}
+
+message CompanyId{
+    string id = 1;
+}
+
+message GetAllCompanyRequest {
+    int64 offset = 1 ;
+    int64 limit = 2 ;
+    string name = 3;
+}
+
+message GetAllCompanyResponse{
+    repeated Company companys = 1;
+    int32 count = 2;
+}
+message AffectedRow {
+    int64 number = 1;
+}

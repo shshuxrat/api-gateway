@@ -1,0 +1,48 @@
+syntax ="proto3";
+package genproto;
+option go_package ="genproto/position_service";
+
+service AttributeService{
+    rpc Create(CreateAttribute) returns (AttributeId){}
+    rpc GetAll(GetAllAttributeRequest) returns (GetAllAttributeResponse){}
+    rpc GetById(AttributeId) returns (Attribute){}
+    rpc Update(Attribute) returns (AttributeAfterUpdate){}
+    rpc Delete(AttributeId) returns(AttributeRowsAffected){}
+}
+
+message Attribute {    
+    string id = 1;
+    string name = 2;
+    string type =3;
+    string created_at =4;
+    string updated_at =5;    
+}
+
+message CreateAttribute{
+    string name = 1;
+    string type = 2;
+}
+
+message AttributeId{
+    string id = 1;
+}
+
+message GetAllAttributeRequest{
+    string name = 1;
+    int32 offset =2;
+    int32 limit =3;
+}
+
+message GetAllAttributeResponse{
+    repeated Attribute attributes = 1;
+    int32 count =2;
+}
+
+message AttributeAfterUpdate{
+    Attribute old = 1;
+    Attribute new = 2;
+}
+
+message AttributeRowsAffected{
+    int64 rowsAffected = 1;
+}
